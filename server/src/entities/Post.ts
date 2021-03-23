@@ -1,12 +1,15 @@
 import { Entity, PrimaryKey, Property } from "@mikro-orm/core";
 import { Field, Int, ObjectType } from "type-graphql";
 
+// create both graphql schema (using type-graphql decorators)
+// and mikro-orm entities (using mikro-orm decorators)
+
 @ObjectType()
 @Entity()
 export class Post {
-  @Field(() => Int)
+  @Field(() => Int) // set specific graphql data type
   @PrimaryKey()
-  id!: number;
+  id!: number; // required
 
   @Field(() => String)
   @Property({ type: "date" })
@@ -18,5 +21,5 @@ export class Post {
 
   @Field()
   @Property({ type: "text" })
-  title!: string;
+  title!: string; //required
 }

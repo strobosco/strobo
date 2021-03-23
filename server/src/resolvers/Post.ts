@@ -2,23 +2,29 @@ import { Post } from "../entities/Post";
 import { Arg, Ctx, Int, Mutation, Query, Resolver } from "type-graphql";
 import { MyContext } from "src/types";
 
+// create resolvers for post type
+
 @Resolver()
 export class PostResolver {
-  @Query(() => [Post])
+  // queries used to GET data
+  @Query(() => [Post]) // returns all posts
   posts(@Ctx() { em }: MyContext): Promise<Post[]> {
     return em.find(Post, {});
   }
 
   @Query(() => Post, { nullable: true })
   post(
+    // returns single post
     @Arg("id", () => Int) id: number,
     @Ctx() { em }: MyContext
   ): Promise<Post | null> {
     return em.findOne(Post, { id });
   }
 
+  //mutations used to create, update, and delete data
   @Mutation(() => Post)
   async createPost(
+    // create post
     @Arg("title", () => String) title: string,
     @Ctx() { em }: MyContext
   ): Promise<Post> {
@@ -29,6 +35,7 @@ export class PostResolver {
 
   @Mutation(() => Post, { nullable: true })
   async updatePost(
+    // update post
     @Arg("id", () => Int) id: number,
     @Arg("title", () => String, { nullable: true }) title: string,
     @Ctx() { em }: MyContext
@@ -46,6 +53,7 @@ export class PostResolver {
 
   @Mutation(() => Boolean)
   async deletePost(
+    // delete post
     @Arg("id", () => Int) id: number,
     @Ctx() { em }: MyContext
   ): Promise<boolean> {
