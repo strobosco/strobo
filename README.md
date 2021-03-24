@@ -1,5 +1,5 @@
 <p align="center" style="font-size:20px">
-  # Strobo
+  <strong>Strobo<strong/>
 </p>
 
 ## About
