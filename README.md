@@ -1,3 +1,3 @@
-<p align="center">
-  <strong style="font-size:20px">Strobo</strong>
+<p align="center" style="font-size:20px">
+  <strong >Strobo</strong>
 </p>
