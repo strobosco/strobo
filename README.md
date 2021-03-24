@@ -21,6 +21,7 @@ Social media platform intended to be used by people who know what they're talkin
 
 ## Server
 
+```
 server
 +-- src
     +-- entities // files used to create entities (database tables)
@@ -37,11 +38,12 @@ server
     |
     +-- utils
     |   +-- sleep.ts (used to check Next.js SSR)
+```
 
-    ## Server
 
 ## Frontend
 
+```
 frontend
 +-- src
     +-- components // general components shared by all pages / other components
@@ -61,3 +63,4 @@ frontend
     +-- pages //Next.js folder containing app pages
     |
     +-- utils // folder containing various utils
+```
