@@ -1,8 +1,9 @@
 import "reflect-metadata";
 import { MikroORM } from "@mikro-orm/core";
-import { __prod__ } from "./constants";
+import { COOKIE_NAME, __prod__ } from "./constants";
 import microConfig from "./mikro-orm.config";
 import express from "express";
+import cors from "cors";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import { HelloResolver } from "./resolvers/hello";
@@ -31,9 +32,15 @@ const main = async () => {
   const redisClient = redis.createClient(); // connects to redis-server
 
   app.use(
+    cors({
+      origin: "http://localhost:3000",
+      credentials: true,
+    })
+  );
+  app.use(
     // set up cookies to be used by apollo and express as middleware
     session({
-      name: "qid",
+      name: COOKIE_NAME,
       store: new RedisStore({
         client: redisClient,
         disableTouch: true,
@@ -59,7 +66,7 @@ const main = async () => {
     context: ({ req, res }): MyContext => ({ em: orm.em, req, res }), // add contexxt for resolvers
   });
 
-  apolloServer.applyMiddleware({ app });
+  apolloServer.applyMiddleware({ app, cors: false });
 
   app.listen(8080, () => {
     console.log("Server started on port 8080");

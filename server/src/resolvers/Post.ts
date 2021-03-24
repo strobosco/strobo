@@ -3,12 +3,11 @@ import { Arg, Ctx, Int, Mutation, Query, Resolver } from "type-graphql";
 import { MyContext } from "src/types";
 
 // create resolvers for post type
-
 @Resolver()
 export class PostResolver {
   // queries used to GET data
   @Query(() => [Post]) // returns all posts
-  posts(@Ctx() { em }: MyContext): Promise<Post[]> {
+  async posts(@Ctx() { em }: MyContext): Promise<Post[]> {
     return em.find(Post, {});
   }
 
