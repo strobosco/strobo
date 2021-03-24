@@ -14,9 +14,9 @@ import session from "express-session";
 import connectRedis from "connect-redis";
 import { MyContext } from "./types";
 
-// module needed to add certain properties to Session interface (used in resolvers for cookies)
+// use declaration merging to add 'userId' to session object
 declare module "express-session" {
-  interface Session {
+  interface SessionData {
     userId: number;
   }
 }
@@ -24,7 +24,7 @@ declare module "express-session" {
 const main = async () => {
   const orm = await MikroORM.init(microConfig); // initaizlize orm
 
-  await orm.getMigrator().up(); // perform migration if changes are made
+  await orm.getMigrator().up(); // perform migration on startup, only if changes are made
 
   const app = express();
 
@@ -32,19 +32,22 @@ const main = async () => {
   const redisClient = redis.createClient(); // connects to redis-server
 
   app.use(
+    // allow app to use cors from
     cors({
-      origin: "http://localhost:3000",
+      origin: "http://localhost:3000", // this URL
       credentials: true,
     })
   );
   app.use(
     // set up cookies to be used by apollo and express as middleware
     session({
-      name: COOKIE_NAME,
+      name: COOKIE_NAME, // The name of the session ID cookie to set in the response (and read from in the request)
+      // The session store instance
       store: new RedisStore({
         client: redisClient,
         disableTouch: true,
       }),
+      // Settings object for the session ID cookie
       cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 1o years
         httpOnly: true,

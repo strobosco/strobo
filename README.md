@@ -2,22 +2,28 @@
   <strong>Strobo<strong/>
 </p>
 
-## About
+## What?
 
 Social media platform intended to be used by people who know what they're talking about
 
-## Aims
+## Why?
+
+Everybody's tired of having to deal with know-it-alls on social media. You post something innocent or objecctively right
+and you find yourself having to deal with annoying and frustrating encounters from "69noobslayer420". Strobo aims to fix 
+this problem. We want to:
 
 - bring back accountability and responsibility to social media
-- create a community of academics, researchers, scientista, journalists, publishers, CEO's, ...
-- create a community that is educated, transparent, mature, methodical, and objective
+- create a community that is educated, transparent, mature, methodical, objective, humble, and always hungry to know more
+
+## How?
+
 
 ## Structure
 
-| Codebase                |     Description     |
-| :------------           | :------------------ |
-| [server](server)        | Express/GraphQL api |
-| [frontend](frontend)    | Web app frontend    |
+| Codebase          |     Description     |
+| :------------     | :------------------ |
+| [sanso](sanso)    | Express/GraphQL API |
+| [falco](falco)    | Web app frontend    |
 
 ## Server
 
