@@ -17,6 +17,9 @@ this problem. We want to:
 
 ## How?
 
+We plan to allow public access to our platform. Meaning anybody can sign up for an account an read everything
+that is posted to the app. However, to be allowed to post you have to earn the possiblity to do so. Currently, we're thinking of implementing a test system like LinkedIn's. Where in order to gain badges to display on your profile you must pass a certain test.
+
 
 ## Structure
 
