@@ -54,9 +54,13 @@ frontend
 +-- src
     +-- components // general components shared by all pages / other components
     |   +-- DarkModeSwitch.tsx (used to tooggle dark/light mode)
-    |   +-- InputField.tsx (generic input field)
     |   +-- NavBar.tsx (NavBar)
     |   +-- Wrapper.tsx (wrapper to control sizes of components)
+    |   +-- Layout.tsx (component that generalizes the layout using NavBar and Wrapper)
+    |   +-- input (folder needed to fix Textarea problem)
+    |       +-- Input.tsx
+    |       +-- InputField.tsx
+    |       +-- testInput.tsx
     |
     +-- generated // generated GraphQL client types
     |   ...
@@ -67,6 +71,12 @@ frontend
     |   |   +-- queries (contains GraphQL queries)
     |
     +-- pages //Next.js folder containing app pages
+    |   +-- change-password (contains password change dynamic page)
+    |   +-- create-post.tsx (create post page)
+    |   +-- forgot-password.tsx (forgot password page)
+    |   +-- index.tsx (home page)
+    |   +-- login.tsx (login page)
+    |   +-- input (registration page)
     |
     +-- utils // folder containing various utils
 ```
