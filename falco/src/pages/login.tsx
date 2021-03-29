@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Formik } from "formik";
 import { Wrapper } from "../components/Wrapper";
-import { InputField } from "../components/InputField";
+import { InputField } from "../components/input/InputField";
 import { Button } from "@chakra-ui/button";
 import { Box, Flex, Link } from "@chakra-ui/react";
 import { useLoginMutation } from "../generated/graphql";
@@ -25,7 +25,11 @@ export const Login: React.FC<{}> = ({}) => {
           if (response.data?.login.errors) {
             setErrors(toErrorMap(response.data.login.errors));
           } else if (response.data?.login.user) {
-            router.push("/");
+            if (typeof router.query.next === "string") {
+              router.push(router.query.next);
+            } else {
+              router.push("/");
+            }
           }
         }}
       >

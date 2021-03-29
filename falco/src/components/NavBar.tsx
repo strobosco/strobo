@@ -1,9 +1,9 @@
-import { Box, Flex, Link } from "@chakra-ui/layout";
 import React from "react";
 import NextLink from "next/link";
 import { useLogoutMutation, useMeQuery } from "../generated/graphql";
 import { Button } from "@chakra-ui/button";
 import { isServer } from "../utils/isServer";
+import { Box, Flex, Link } from "@chakra-ui/react";
 
 interface NavBarProps {}
 
@@ -49,7 +49,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   }
 
   return (
-    <Flex bg="tan" p={4}>
+    <Flex position="sticky" zIndex={1} top={0} bg="tan" p={4}>
       <Box ml={"auto"}>{body}</Box>
     </Flex>
   );

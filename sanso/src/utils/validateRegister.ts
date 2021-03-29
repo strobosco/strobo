@@ -6,7 +6,7 @@ export const validateRegister = (options: UsernamePasswordInput) => {
     return [
       {
         field: "email",
-        message: "invalid email",
+        message: "The email you entered is invalid",
       },
     ];
   }
@@ -15,7 +15,7 @@ export const validateRegister = (options: UsernamePasswordInput) => {
     return [
       {
         field: "username",
-        message: "length must be longer",
+        message: "Username must contain at least 2 characters",
       },
     ];
   }
@@ -24,7 +24,7 @@ export const validateRegister = (options: UsernamePasswordInput) => {
     return [
       {
         field: "username",
-        message: "cannor include @",
+        message: "Username canno include '@'",
       },
     ];
   }
@@ -34,7 +34,7 @@ export const validateRegister = (options: UsernamePasswordInput) => {
     return [
       {
         field: "password",
-        message: "length must be longer",
+        message: "Password must contain at least 6 characters",
       },
     ];
   }

@@ -1,7 +1,5 @@
 import "reflect-metadata";
-import { MikroORM } from "@mikro-orm/core";
 import { COOKIE_NAME, __prod__ } from "./constants";
-import microConfig from "./mikro-orm.config";
 import express from "express";
 import cors from "cors";
 import { ApolloServer } from "apollo-server-express";
@@ -13,6 +11,9 @@ import Redis from "ioredis";
 import session from "express-session";
 import connectRedis from "connect-redis";
 import { MyContext } from "./types";
+import { createConnection } from "typeorm";
+import { User } from "./entities/User";
+import { Post } from "./entities/Post";
 
 // use declaration merging to add 'userId' to session object
 declare module "express-session" {
@@ -22,8 +23,15 @@ declare module "express-session" {
 }
 
 const main = async () => {
-  const orm = await MikroORM.init(microConfig); // initaizlize orm
-  await orm.getMigrator().up(); // perform migration on startup, only if changes are made
+  const conn = await createConnection({
+    type: "postgres",
+    database: "strobo2",
+    username: "postgres",
+    password: "Niccolo1!",
+    logging: true,
+    synchronize: true,
+    entities: [Post, User],
+  });
 
   const app = express();
 
@@ -65,7 +73,7 @@ const main = async () => {
       resolvers: [HelloResolver, PostResolver, UserResolver], // add resolvers to schema
       validate: false,
     }),
-    context: ({ req, res }): MyContext => ({ em: orm.em, req, res, redis }), // add contexxt for resolvers
+    context: ({ req, res }): MyContext => ({ req, res, redis }), // add contexxt for resolvers
   });
 
   apolloServer.applyMiddleware({ app, cors: false });

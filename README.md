@@ -9,8 +9,7 @@ Social media platform intended to be used by people who know what they're talkin
 ## Why?
 
 Everybody's tired of having to deal with know-it-alls on social media. You post something innocent or objecctively right
-and you find yourself having to deal with annoying and frustrating encounters from "69noobslayer420". Strobo aims to fix 
-this problem. We want to:
+and you find yourself having to deal with annoying and frustrating encounters from "69noobslayer420". Strobo aims to fix this problem. We want to:
 
 - bring back accountability and responsibility to social media
 - create a community that is educated, transparent, mature, methodical, objective, humble, and always hungry to know more
@@ -37,8 +36,6 @@ server
     |   +-- Post.ts (post db table structure)
     |   +-- User.ts (user db table structure)
     |
-    +-- migrations // mikro-orm migrations
-    |   ...
     |
     +-- resolvers // GraphQL resolvers
     |   +-- hello.ts (sample resolver to check functionality)
