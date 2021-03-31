@@ -1,6 +1,4 @@
-<p align="center" style="font-size:20px">
-  <strong>Strobo<strong/>
-</p>
+# Strobo
 
 ## What?
 
@@ -27,30 +25,43 @@ that is posted to the app. However, to be allowed to post you have to earn the p
 | [sanso](sanso)    | Express/GraphQL API |
 | [falco](falco)    | Web app frontend    |
 
-## Server
+### Sanso
 
 ```
-server
+sanso
 +-- src
     +-- entities // files used to create entities (database tables)
     |   +-- Post.ts (post db table structure)
     |   +-- User.ts (user db table structure)
     |
+    +-- middleware // middleware folder
+    |   +-- isAuth.ts (is user logged in?)
+    |
+    +-- migrations // used to populate db with "fake" data
     |
     +-- resolvers // GraphQL resolvers
     |   +-- hello.ts (sample resolver to check functionality)
     |   +-- Post.ts (post resolver that handles CRUD operations)
     |   +-- User.ts (user resolver that handles login, logout, registration)
+    |   +-- UsernamePasswordInput.ts (input type used to pass options to resolver functions)
     |
     +-- utils
     |   +-- sleep.ts (used to check Next.js SSR)
+    |   +-- sendEmail.ts (send change password email)
+    |   +-- validateRegister.ts (validate registration)
+    |
+    +-- index.ts // main server file
+    |
+    +-- constants.ts // constants file
+    |
+    +-- types.ts // MyContext
 ```
 
 
-## Frontend
+### Falco
 
 ```
-frontend
+falco
 +-- src
     +-- components // general components shared by all pages / other components
     |   +-- DarkModeSwitch.tsx (used to tooggle dark/light mode)
@@ -80,3 +91,9 @@ frontend
     |
     +-- utils // folder containing various utils
 ```
+
+## Progress Log
+
+- 31/3/2021
+  - enable fetching of posts and users, all together, on what will be home page
+  - added email verification when fetching post creators (only see your own email)
