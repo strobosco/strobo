@@ -15,6 +15,7 @@ import { createConnection } from "typeorm";
 import { User } from "./entities/User";
 import { Post } from "./entities/Post";
 import path from "path";
+import { Vote } from "./entities/Vote";
 
 // use declaration merging to add 'userId' to session object
 declare module "express-session" {
@@ -32,7 +33,7 @@ const main = async () => {
     logging: true,
     synchronize: true,
     migrations: [path.join(__dirname, "./migrations/*")],
-    entities: [Post, User],
+    entities: [Post, User, Vote],
   });
   await conn.runMigrations();
 
