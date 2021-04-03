@@ -1,21 +1,22 @@
-import "reflect-metadata";
-import { COOKIE_NAME, __prod__ } from "./constants";
-import express from "express";
-import cors from "cors";
 import { ApolloServer } from "apollo-server-express";
+import connectRedis from "connect-redis";
+import cors from "cors";
+import express from "express";
+import session from "express-session";
+import Redis from "ioredis";
+import path from "path";
+import "reflect-metadata";
 import { buildSchema } from "type-graphql";
+import { createConnection } from "typeorm";
+import { COOKIE_NAME } from "./constants";
+import { Post } from "./entities/Post";
+import { User } from "./entities/User";
+import { Vote } from "./entities/Vote";
 import { HelloResolver } from "./resolvers/hello";
 import { PostResolver } from "./resolvers/Post";
 import { UserResolver } from "./resolvers/User";
-import Redis from "ioredis";
-import session from "express-session";
-import connectRedis from "connect-redis";
-import { MyContext } from "./types";
-import { createConnection } from "typeorm";
-import { User } from "./entities/User";
-import { Post } from "./entities/Post";
-import path from "path";
-import { Vote } from "./entities/Vote";
+import { createUserLoader } from "./utils/createUserLoader";
+import { createVoteLoader } from "./utils/createVoteLoader";
 
 // use declaration merging to add 'userId' to session object
 declare module "express-session" {
@@ -79,7 +80,13 @@ const main = async () => {
       resolvers: [HelloResolver, PostResolver, UserResolver], // add resolvers to schema
       validate: false,
     }),
-    context: ({ req, res }): MyContext => ({ req, res, redis }), // add contexxt for resolvers
+    context: ({ req, res }) => ({
+      req,
+      res,
+      redis,
+      userLoader: createUserLoader(),
+      voteLoader: createVoteLoader(),
+    }), // add contexxt for resolvers
   });
 
   apolloServer.applyMiddleware({ app, cors: false });
