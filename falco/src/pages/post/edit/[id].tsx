@@ -1,5 +1,5 @@
-import { Box, Button } from "@chakra-ui/react";
-import { Form, Formik } from "formik";
+import { Box, Button, FormLabel } from "@chakra-ui/react";
+import { Field, Form, Formik } from "formik";
 import { withUrqlClient } from "next-urql";
 import { useRouter } from "next/router";
 import React from "react";
@@ -22,6 +22,17 @@ const EditPost = ({}) => {
     },
   });
   const [, updatePost] = useUpdatePostMutation();
+
+  const myStyle = {
+    width: "100%",
+    paddingTop: "0.625rem",
+    paddingBottom: "0.625rem",
+    paddingLeft: "0.75rem",
+    paddingRight: "0.75rem",
+    borderStyle: "solid",
+    borderWidth: "1px",
+    borderColor: "rgb(169,169,169)",
+  };
 
   if (fetching) {
     return (
@@ -54,13 +65,20 @@ const EditPost = ({}) => {
       >
         {({ isSubmitting }) => (
           <Form>
-            <InputField name="title" placeholder="title" label="Title" />
+            <FormLabel htmlFor="title">Title</FormLabel>
+            <Field
+              as="input"
+              name="title"
+              placeholder="title"
+              style={myStyle}
+            />
             <Box mt="4">
-              <InputField
-                textarea={true}
+              <FormLabel htmlFor="text">Body</FormLabel>
+              <Field
+                as="textarea"
                 name="text"
                 placeholder="text..."
-                label="Body"
+                style={myStyle}
               />
             </Box>
             <Button
