@@ -1,20 +1,30 @@
-import React from "react";
-import { Form, Formik } from "formik";
-import { Wrapper } from "../components/Wrapper";
-import { InputField } from "../components/input/InputField";
 import { Button } from "@chakra-ui/button";
-import { Box, Flex, Link } from "@chakra-ui/react";
-import { useLoginMutation } from "../generated/graphql";
-import { toErrorMap } from "../utils/toErrorMap";
-import { useRouter } from "next/dist/client/router";
+import { Box, Flex, FormLabel, Link } from "@chakra-ui/react";
+import { Field, Form, Formik } from "formik";
 import { withUrqlClient } from "next-urql";
-import { createUrqlClient } from "../utils/createUrqlClient";
+import { useRouter } from "next/dist/client/router";
 import NextLink from "next/link";
+import React from "react";
+import { Wrapper } from "../components/Wrapper";
+import { useLoginMutation } from "../generated/graphql";
+import { createUrqlClient } from "../utils/createUrqlClient";
+import { toErrorMap } from "../utils/toErrorMap";
 // import { useRouter } from "next/router";
 
 export const Login: React.FC<{}> = ({}) => {
   const router = useRouter();
   const [{}, login] = useLoginMutation();
+
+  const myStyle = {
+    width: "100%",
+    paddingTop: "0.625rem",
+    paddingBottom: "0.625rem",
+    paddingLeft: "0.75rem",
+    paddingRight: "0.75rem",
+    borderStyle: "solid",
+    borderWidth: "1px",
+    borderColor: "rgb(169,169,169)",
+  };
 
   return (
     <Wrapper variant="small">
@@ -35,18 +45,33 @@ export const Login: React.FC<{}> = ({}) => {
       >
         {({ isSubmitting }) => (
           <Form>
-            <InputField
+            <FormLabel htmlFor="usernameOrEmail">Username or Email</FormLabel>
+            <Field
+              as="input"
+              name="usernameOrEmail"
+              placeholder="username or email"
+              style={myStyle}
+            />
+            {/* <InputField
               name="usernameOrEmail"
               placeholder="username or email"
               label="Username or Email"
-            />
+            /> */}
             <Box mt="4">
-              <InputField
+              <FormLabel htmlFor="password">Password</FormLabel>
+              <Field
+                as="input"
+                name="password"
+                placeholder="Password"
+                type="password"
+                style={myStyle}
+              />
+              {/* <InputField
                 name="password"
                 placeholder="password"
                 label="Password"
                 type="password"
-              />
+              /> */}
             </Box>
             <Flex>
               <NextLink href="/forgot-password">
