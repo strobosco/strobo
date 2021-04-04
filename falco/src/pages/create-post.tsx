@@ -1,9 +1,8 @@
-import { Box, Button } from "@chakra-ui/react";
-import { Form, Formik } from "formik";
+import { Box, Button, FormLabel } from "@chakra-ui/react";
+import { Field, Form, Formik } from "formik";
 import { withUrqlClient } from "next-urql";
 import { useRouter } from "next/router";
 import React from "react";
-import { InputField } from "../components/input/InputField";
 import { Layout } from "../components/Layout";
 import { useCreatePostMutation } from "../generated/graphql";
 import { createUrqlClient } from "../utils/createUrqlClient";
@@ -12,6 +11,17 @@ import { useIsAuth } from "../utils/useIsAuth";
 const CreatePost: React.FC<{}> = ({}) => {
   const [, createPost] = useCreatePostMutation();
   const router = useRouter();
+
+  const myStyle = {
+    width: "100%",
+    paddingTop: "0.625rem",
+    paddingBottom: "0.625rem",
+    paddingLeft: "0.75rem",
+    paddingRight: "0.75rem",
+    borderStyle: "solid",
+    borderWidth: "1px",
+    borderColor: "rgb(169,169,169)",
+  };
 
   useIsAuth();
 
@@ -30,13 +40,20 @@ const CreatePost: React.FC<{}> = ({}) => {
         >
           {({ isSubmitting }) => (
             <Form>
-              <InputField name="title" placeholder="title" label="Title" />
+              <FormLabel htmlFor="title">Title</FormLabel>
+              <Field
+                as="input"
+                name="title"
+                placeholder="title"
+                style={myStyle}
+              />
               <Box mt="4">
-                <InputField
-                  textarea={true}
+                <FormLabel htmlFor="text">Body</FormLabel>
+                <Field
+                  as="textarea"
                   name="text"
                   placeholder="text..."
-                  label="Body"
+                  style={myStyle}
                 />
               </Box>
               <Button
