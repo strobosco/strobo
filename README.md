@@ -2,20 +2,27 @@
 
 ## What?
 
-Social media platform intended to be used by people who know what they're talking about
+Social media platform that brings back transparency and accountability to the web
 
 ## Why?
 
-Everybody's tired of having to deal with know-it-alls on social media. You post something innocent or objecctively right
-and you find yourself having to deal with annoying and frustrating encounters from "69noobslayer420". Strobo aims to fix this problem. We want to:
+Social media nowadays lacks **responsibility, accountability, truth, and transparency**. Strobo aims to fix this problem. We want to bring social media back to what it once was: a **community built on solid morals that allowed individuals to interact with one another**.
+
+### Goals
 
 - bring back accountability and responsibility to social media
-- create a community that is educated, transparent, mature, methodical, objective, humble, and always hungry to know more
+- create a space that is based on truth and transparency
+- create a community that is educated, mature, methodical, objective, and always hungry to know more
 
 ## How?
 
-We plan to allow public access to our platform. Meaning anybody can sign up for an account an read everything
-that is posted to the app. However, to be allowed to post you have to earn the possiblity to do so. Currently, we're thinking of implementing a test system like LinkedIn's. Where in order to gain badges to display on your profile you must pass a certain test.
+Our users will be divided into 2 main tiers: *Pare*'s and *Torgio*'s.
+
+- *Pare*: this is a verified user who can post, comment, and like whatever material is posted to the app
+
+- *Torgio*: this is a public user, the only action possible from this account is reading
+
+We plan to allow public access to our platform because we believe information should be free and accessible to all. So, anybody can sign up for an account and read everything that is posted to the app. However, to be allowed to post you have to earn the possiblity to do so. Currently, we're thinking of implementing a test system like LinkedIn's where in order to gain badges to display on your profile you must pass a certain test. We are open to suggestions.
 
 
 ## Structure
@@ -24,6 +31,8 @@ that is posted to the app. However, to be allowed to post you have to earn the p
 | :------------     | :------------------ |
 | [sanso](sanso)    | Express/GraphQL API |
 | [falco](falco)    | Web app frontend    |
+|                   | React Native app    |
+|                   | Desktop app         |
 
 ### Sanso
 
@@ -33,6 +42,7 @@ sanso
     +-- entities // files used to create entities (database tables)
     |   +-- Post.ts (post db table structure)
     |   +-- User.ts (user db table structure)
+    |   +-- Vote.ts (vote db table structure)
     |
     +-- middleware // middleware folder
     |   +-- isAuth.ts (is user logged in?)
@@ -49,6 +59,8 @@ sanso
     |   +-- sleep.ts (used to check Next.js SSR)
     |   +-- sendEmail.ts (send change password email)
     |   +-- validateRegister.ts (validate registration)
+    |   +-- createUserLoader.ts (User DataLoader)
+    |   +-- createVoteLoader.ts (Vote DataLoader)
     |
     +-- index.ts // main server file
     |
@@ -68,7 +80,9 @@ falco
     |   +-- NavBar.tsx (NavBar)
     |   +-- Wrapper.tsx (wrapper to control sizes of components)
     |   +-- Layout.tsx (component that generalizes the layout using NavBar and Wrapper)
-    |   +-- input (folder needed to fix Textarea problem)
+    |   +-- VoteSection.tsx (contains upvote, downvote buttons and points)
+    |   +-- EditDeletePostButton.tsx (contains edit and delete buttons)
+    |   +-- input (folder needed to fix Textarea problem) // deprecated by using Formik fields
     |       +-- Input.tsx
     |       +-- InputField.tsx
     |       +-- testInput.tsx
@@ -83,17 +97,25 @@ falco
     |
     +-- pages //Next.js folder containing app pages
     |   +-- change-password (contains password change dynamic page)
+    |   +-- post (contains pages to VIEW and EDIT post)
     |   +-- create-post.tsx (create post page)
     |   +-- forgot-password.tsx (forgot password page)
     |   +-- index.tsx (home page)
     |   +-- login.tsx (login page)
-    |   +-- input (registration page)
+    |   +-- register.tsx (registration page)
     |
     +-- utils // folder containing various utils
 ```
 
-## Progress Log
+### Tech Stack
 
-- 31/3/2021
-  - enable fetching of posts and users, all together, on what will be home page
-  - added email verification when fetching post creators (only see your own email)
+- Web Frontend:
+  - React bootstrapped using create-nextjs-app
+  - Type-GraphQL for type generation
+  - ~~Argon for encryption~~
+
+- Backend:
+  - Node.js using npm package manager
+  - Express framework
+  - Apollo-Server
+  - TypoORM for type generation
