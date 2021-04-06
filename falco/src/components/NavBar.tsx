@@ -5,13 +5,15 @@ import { Button } from "@chakra-ui/button";
 // import { isServer } from "../utils/isServer"; used to make me query from browser not server
 import { Box, Flex, Heading, Link } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { useApolloClient } from "@apollo/client";
 
 interface NavBarProps {}
 
 export const NavBar: React.FC<NavBarProps> = ({}) => {
   const router = useRouter();
-  const [{ fetching: logoutFetching }, logout] = useLogoutMutation();
-  const [{ data, fetching }] = useMeQuery();
+  const [logout, { loading: logoutFetching }] = useLogoutMutation();
+  const apolloClient = useApolloClient();
+  const { data, loading } = useMeQuery();
   // can also make request from browser:
   // const [{ data, fetching }] = useMeQuery({
   // pause: isServer(),
@@ -20,7 +22,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   let body = null;
 
   // data is loading
-  if (fetching) {
+  if (loading) {
     // user not logged in
   } else if (!data?.me) {
     body = (
@@ -46,7 +48,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
         <Button
           onClick={async () => {
             await logout();
-            router.reload();
+            await apolloClient.resetStore();
           }}
           isLoading={logoutFetching}
           variant="link"
