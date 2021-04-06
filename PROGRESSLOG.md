@@ -6,3 +6,6 @@
 
 - 4/4/2021
   - finished most of the general tutorial, watching the deploy section
+
+- 6/4/2021
+  - migrated from Urql to Apollo Client, "main" branch is using Urql while "dev" and "apollo_server" are using Apollo Client
