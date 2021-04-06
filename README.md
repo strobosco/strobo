@@ -111,11 +111,12 @@ falco
 
 - Web Frontend:
   - React bootstrapped using create-nextjs-app
+  - Next.js
   - Type-GraphQL for type generation
-  - ~~Argon for encryption~~
+  - Apollo Client 
 
 - Backend:
   - Node.js using npm package manager
   - Express framework
-  - Apollo-Server
-  - TypoORM for type generation
+  - Apollo-Server-Express
+  - TypeORM for type generation
