@@ -11,17 +11,18 @@ import {
 } from "../../../generated/graphql";
 import { createUrqlClient } from "../../../utils/createUrqlClient";
 import { useGetIntId } from "../../../utils/useGetIntId";
+import { withApollo } from "../../../utils/withApollo";
 
 const EditPost = ({}) => {
   const router = useRouter();
   const intId = useGetIntId();
-  const [{ data, error, fetching }] = usePostQuery({
-    pause: intId === -1,
+  const { data, error, loading } = usePostQuery({
+    skip: intId === -1,
     variables: {
       id: intId,
     },
   });
-  const [, updatePost] = useUpdatePostMutation();
+  const [updatePost] = useUpdatePostMutation();
 
   const myStyle = {
     width: "100%",
@@ -34,7 +35,7 @@ const EditPost = ({}) => {
     borderColor: "rgb(169,169,169)",
   };
 
-  if (fetching) {
+  if (loading) {
     return (
       <Layout>
         <Box>loading...</Box>
@@ -59,7 +60,7 @@ const EditPost = ({}) => {
       <Formik
         initialValues={{ title: data.post.title, text: data.post.text }}
         onSubmit={async (values) => {
-          await updatePost({ id: intId, ...values });
+          await updatePost({ variables: { id: intId, ...values } });
           router.back();
         }}
       >
@@ -96,4 +97,4 @@ const EditPost = ({}) => {
   );
 };
 
-export default withUrqlClient(createUrqlClient)(EditPost);
+export default withApollo({ ssr: false })(EditPost);
