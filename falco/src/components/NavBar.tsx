@@ -39,11 +39,11 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   } else {
     body = (
       <Flex align="center">
-        <NextLink href="/create-post">
+        {/* <NextLink href="/create-post">
           <Button as={Link} mr={4}>
             Create Post
           </Button>
-        </NextLink>
+        </NextLink> */}
         <Box mr={2}>{data.me.username}</Box>
         <Button
           onClick={async () => {
@@ -64,7 +64,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
     <Flex position="sticky" zIndex={1} top={0} bg="tan" p={4} align="center">
       <NextLink href="/">
         <Link>
-          <Heading>LiReddit</Heading>
+          <Heading>Strobo</Heading>
         </Link>
       </NextLink>
       <Box ml={"auto"}>{body}</Box>
