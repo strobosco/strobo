@@ -1,3 +1,5 @@
+import "reflect-metadata";
+import "dotenv-safe/config";
 import { ApolloServer } from "apollo-server-express";
 import connectRedis from "connect-redis";
 import cors from "cors";
@@ -28,9 +30,10 @@ declare module "express-session" {
 const main = async () => {
   const conn = await createConnection({
     type: "postgres",
-    database: "strobo2",
-    username: "postgres",
-    password: "Niccolo1!",
+    // database: "strobo2",
+    // username: "postgres",
+    // password: "Niccolo1!",
+    url: process.env.DATABASE_URL,
     logging: true,
     synchronize: true,
     migrations: [path.join(__dirname, "./migrations/*")],
@@ -43,12 +46,12 @@ const main = async () => {
   const app = express();
 
   const RedisStore = connectRedis(session); // create RedisStore
-  const redis = new Redis(); // connects to redis-server
+  const redis = new Redis(process.env.REDIS_URL); // connects to redis-server
 
   app.use(
     // allow app to use cors from
     cors({
-      origin: "http://localhost:3000", // this URL
+      origin: process.env.CORS_ORIGIN, // this URL
       credentials: true,
     })
   );
@@ -67,9 +70,10 @@ const main = async () => {
         httpOnly: true,
         sameSite: "lax", // csrf
         // secure: __prod__, // cookie only works in https
+        // domain: ""
       },
       saveUninitialized: false,
-      secret: "abcdefghijklmnopqrstuvwxyz",
+      secret: process.env.SESSION_SECRET,
       resave: false,
     })
   );
@@ -91,7 +95,7 @@ const main = async () => {
 
   apolloServer.applyMiddleware({ app, cors: false });
 
-  app.listen(8080, () => {
+  app.listen(parseInt(process.env.PORT), () => {
     console.log("Server started on port 8080");
   });
 };
