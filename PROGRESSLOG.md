@@ -9,3 +9,6 @@
 
 - 6/4/2021
   - migrated from Urql to Apollo Client, "main" branch is using Urql while "dev" and "apollo_server" are using Apollo Client
+
+- 7/4/2021
+  - added SideBar to home page, abstracted some components
