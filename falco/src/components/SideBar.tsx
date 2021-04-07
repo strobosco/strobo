@@ -1,6 +1,6 @@
-import { Box, Button, Flex, Grid, Link, Text } from "@chakra-ui/react";
-import React from "react";
+import { Box, Button, Grid, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
+import React from "react";
 
 interface SideBarProps {}
 
