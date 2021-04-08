@@ -1,16 +1,13 @@
 import { Button } from "@chakra-ui/button";
 import { Box, Flex, FormLabel, Link } from "@chakra-ui/react";
-import { Field, Form, Formik } from "formik";
-import { withUrqlClient } from "next-urql";
-import { useRouter } from "next/dist/client/router";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import NextLink from "next/link";
 import React from "react";
 import { Wrapper } from "../components/Wrapper";
 import { MeDocument, MeQuery, useLoginMutation } from "../generated/graphql";
-import { createUrqlClient } from "../utils/createUrqlClient";
 import { toErrorMap } from "../utils/toErrorMap";
 import { withApollo } from "../utils/withApollo";
-// import { useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 export const Login: React.FC<{}> = ({}) => {
   const router = useRouter();
@@ -65,11 +62,7 @@ export const Login: React.FC<{}> = ({}) => {
               placeholder="username or email"
               style={myStyle}
             />
-            {/* <InputField
-              name="usernameOrEmail"
-              placeholder="username or email"
-              label="Username or Email"
-            /> */}
+            <ErrorMessage name="usernameOrEmail" />
             <Box mt="4">
               <FormLabel htmlFor="password">Password</FormLabel>
               <Field
@@ -79,12 +72,7 @@ export const Login: React.FC<{}> = ({}) => {
                 type="password"
                 style={myStyle}
               />
-              {/* <InputField
-                name="password"
-                placeholder="password"
-                label="Password"
-                type="password"
-              /> */}
+              <ErrorMessage name="password" />
             </Box>
             <Flex>
               <NextLink href="/forgot-password">
