@@ -6,6 +6,7 @@ import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { useLogoutMutation, useMeQuery } from "../generated/graphql";
+import { DarkModeSwitch } from "./DarkModeSwitch";
 
 interface NavBarProps {}
 
@@ -69,7 +70,12 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
           <Heading>Strobo</Heading>
         </Link>
       </NextLink>
-      <Box ml={"auto"}>{body}</Box>
+      <Box ml={"auto"}>
+        <Flex align="center">
+          <DarkModeSwitch />
+          {body}
+        </Flex>
+      </Box>
     </Flex>
   );
 };
