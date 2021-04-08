@@ -3,12 +3,14 @@ import { Button } from "@chakra-ui/button";
 // import { isServer } from "../utils/isServer"; used to make me query from browser not server
 import { Box, Flex, Heading, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import { useLogoutMutation, useMeQuery } from "../generated/graphql";
 
 interface NavBarProps {}
 
 export const NavBar: React.FC<NavBarProps> = ({}) => {
+  const router = useRouter();
   const [logout, { loading: logoutFetching }] = useLogoutMutation();
   const apolloClient = useApolloClient();
   const { data, loading } = useMeQuery();
@@ -37,16 +39,18 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   } else {
     body = (
       <Flex align="center">
-        {/* <NextLink href="/create-post">
-          <Button as={Link} mr={4}>
-            Create Post
-          </Button>
-        </NextLink> */}
-        <Box mr={2}>{data.me.username}</Box>
+        <Box mr={4}>
+          <NextLink href="/profile/mine">
+            <Button as={Link} bg="transparent">
+              {data.me.username}
+            </Button>
+          </NextLink>
+        </Box>
         <Button
           onClick={async () => {
             await logout();
             await apolloClient.resetStore();
+            router.push("/");
           }}
           isLoading={logoutFetching}
           variant="link"
