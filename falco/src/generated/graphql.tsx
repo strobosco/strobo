@@ -18,6 +18,7 @@ export type Query = {
   __typename?: 'Query';
   hello: Scalars['String'];
   posts: PaginatedPosts;
+  profilePosts: PaginatedPosts;
   post?: Maybe<Post>;
   me?: Maybe<User>;
 };
@@ -26,6 +27,13 @@ export type Query = {
 export type QueryPostsArgs = {
   cursor?: Maybe<Scalars['String']>;
   limit: Scalars['Int'];
+};
+
+
+export type QueryProfilePostsArgs = {
+  cursor?: Maybe<Scalars['String']>;
+  limit: Scalars['Int'];
+  id: Scalars['Int'];
 };
 
 
@@ -58,6 +66,7 @@ export type User = {
   id: Scalars['Int'];
   username: Scalars['String'];
   email: Scalars['String'];
+  posts?: Maybe<Array<Post>>;
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
 };
@@ -318,6 +327,25 @@ export type PostsQueryVariables = Exact<{
 export type PostsQuery = (
   { __typename?: 'Query' }
   & { posts: (
+    { __typename?: 'PaginatedPosts' }
+    & Pick<PaginatedPosts, 'hasMore'>
+    & { posts: Array<(
+      { __typename?: 'Post' }
+      & PostSnippetFragment
+    )> }
+  ) }
+);
+
+export type ProfilePostsQueryVariables = Exact<{
+  id: Scalars['Int'];
+  limit: Scalars['Int'];
+  cursor?: Maybe<Scalars['String']>;
+}>;
+
+
+export type ProfilePostsQuery = (
+  { __typename?: 'Query' }
+  & { profilePosts: (
     { __typename?: 'PaginatedPosts' }
     & Pick<PaginatedPosts, 'hasMore'>
     & { posts: Array<(
@@ -784,3 +812,43 @@ export function usePostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Post
 export type PostsQueryHookResult = ReturnType<typeof usePostsQuery>;
 export type PostsLazyQueryHookResult = ReturnType<typeof usePostsLazyQuery>;
 export type PostsQueryResult = Apollo.QueryResult<PostsQuery, PostsQueryVariables>;
+export const ProfilePostsDocument = gql`
+    query ProfilePosts($id: Int!, $limit: Int!, $cursor: String) {
+  profilePosts(id: $id, limit: $limit, cursor: $cursor) {
+    hasMore
+    posts {
+      ...PostSnippet
+    }
+  }
+}
+    ${PostSnippetFragmentDoc}`;
+
+/**
+ * __useProfilePostsQuery__
+ *
+ * To run a query within a React component, call `useProfilePostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProfilePostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProfilePostsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      limit: // value for 'limit'
+ *      cursor: // value for 'cursor'
+ *   },
+ * });
+ */
+export function useProfilePostsQuery(baseOptions: Apollo.QueryHookOptions<ProfilePostsQuery, ProfilePostsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ProfilePostsQuery, ProfilePostsQueryVariables>(ProfilePostsDocument, options);
+      }
+export function useProfilePostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProfilePostsQuery, ProfilePostsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ProfilePostsQuery, ProfilePostsQueryVariables>(ProfilePostsDocument, options);
+        }
+export type ProfilePostsQueryHookResult = ReturnType<typeof useProfilePostsQuery>;
+export type ProfilePostsLazyQueryHookResult = ReturnType<typeof useProfilePostsLazyQuery>;
+export type ProfilePostsQueryResult = Apollo.QueryResult<ProfilePostsQuery, ProfilePostsQueryVariables>;
