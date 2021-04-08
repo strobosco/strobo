@@ -1,0 +1,8 @@
+query ProfilePosts($id: Int!, $limit: Int!, $cursor: String) {
+  profilePosts(id: $id, limit: $limit, cursor: $cursor) {
+    hasMore
+    posts {
+      ...PostSnippet
+    }
+  }
+}
