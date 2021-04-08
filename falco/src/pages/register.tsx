@@ -1,14 +1,11 @@
-import React from "react";
-import { Form, Formik } from "formik";
-import { Wrapper } from "../components/Wrapper";
-import { InputField } from "../components/input/InputField";
 import { Button } from "@chakra-ui/button";
-import { Box } from "@chakra-ui/react";
+import { Box, FormLabel } from "@chakra-ui/react";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useRouter } from "next/dist/client/router";
+import React from "react";
+import { Wrapper } from "../components/Wrapper";
 import { MeDocument, MeQuery, useRegisterMutation } from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
-import { useRouter } from "next/dist/client/router";
-import { withUrqlClient } from "next-urql";
-import { createUrqlClient } from "../utils/createUrqlClient";
 import { withApollo } from "../utils/withApollo";
 // import { useRouter } from "next/router";
 
@@ -17,6 +14,17 @@ interface RegisterProps {}
 export const Register: React.FC<RegisterProps> = ({}) => {
   const router = useRouter();
   const [register] = useRegisterMutation();
+
+  const myStyle = {
+    width: "100%",
+    paddingTop: "0.625rem",
+    paddingBottom: "0.625rem",
+    paddingLeft: "0.75rem",
+    paddingRight: "0.75rem",
+    borderStyle: "solid",
+    borderWidth: "1px",
+    borderColor: "rgb(169,169,169)",
+  };
 
   return (
     <Wrapper variant="small">
@@ -44,21 +52,36 @@ export const Register: React.FC<RegisterProps> = ({}) => {
       >
         {({ isSubmitting }) => (
           <Form>
-            <InputField
+            <FormLabel htmlFor="username">Username</FormLabel>
+            <Field
+              as="input"
               name="username"
               placeholder="username"
               label="Username"
+              style={myStyle}
             />
+            <ErrorMessage name="username" />
             <Box mt="4">
-              <InputField
+              <FormLabel htmlFor="password">Password</FormLabel>
+              <Field
+                as="input"
                 name="password"
                 placeholder="password"
                 label="Password"
                 type="password"
+                style={myStyle}
               />
+              <ErrorMessage name="password" />
             </Box>
             <Box mt="4">
-              <InputField name="email" placeholder="email" label="Email" />
+              <FormLabel htmlFor="email">Email</FormLabel>
+              <Field
+                name="email"
+                placeholder="email"
+                label="Email"
+                style={myStyle}
+              />
+              <ErrorMessage name="email" />
             </Box>
             <Button
               mt="4"
