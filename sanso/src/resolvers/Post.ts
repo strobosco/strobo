@@ -112,6 +112,59 @@ export class PostResolver {
     };
   }
 
+  @Query(() => PaginatedPosts) // returns all posts
+  async profilePosts(
+    @Arg("id", () => Int) id: number,
+    @Arg("limit", () => Int) limit: number,
+    @Arg("cursor", () => String, { nullable: true }) cursor: string | null
+  ): Promise<PaginatedPosts> {
+    const realLimit = Math.min(50, limit);
+    const realLimitPlusOne = realLimit + 1;
+
+    const replacements: any[] = [realLimitPlusOne, id];
+
+    if (cursor) {
+      replacements.push(new Date(parseInt(cursor)));
+    }
+
+    const posts = await getConnection().query(
+      `
+    select p.*
+    from post p
+    ${
+      cursor && id
+        ? `where p."createdAt" < $3 AND p."creatorId" = $2`
+        : ` where p."creatorId" = $2`
+    }
+    order by p."createdAt" DESC
+    limit $1
+
+    `,
+      replacements
+    );
+
+    // const qb = getConnection()
+    //   .getRepository(Post)
+    //   .createQueryBuilder("p")
+    //   .innerJoinAndSelect("p.creator", "u", 'u.id = p."creatorId"')
+    //   .orderBy('p."createdAt"', "DESC")
+    //   .take(realLimitPlusOne);
+
+    // if (cursor) {
+    //   qb.where('p."createdAt" <  :cursor', {
+    //     cursor: new Date(parseInt(cursor)),
+    //   });
+    // }
+
+    // const posts = await qb.getMany();
+    // console.log("posts: ", posts);
+
+    return {
+      posts: posts.slice(0, realLimit),
+      hasMore: posts.length === realLimitPlusOne,
+    };
+  }
+
   @Query(() => Post, { nullable: true })
   post(@Arg("id", () => Int) id: number): Promise<Post | undefined> {
     return Post.findOne(id);
