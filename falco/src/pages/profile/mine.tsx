@@ -23,10 +23,10 @@ const MyProfile: React.FC<{}> = ({}) => {
   return (
     <Layout variant="regular">
       <Heading m={5}>{data?.me?.username}</Heading>
-      <Stack spacing={8} mt={6}>
+      <Stack spacing={8} m={5} mt={6}>
         {postsData?.profilePosts.posts.map((p) =>
           !p ? null : (
-            <Flex key={p.id} m={5} p={5} shadow="md" borderWidth="1px">
+            <Flex key={p.id} p={5} shadow="md" borderWidth="1px">
               <Box flex={1}>
                 <Flex align="center" p={4}>
                   <Heading fontSize="xl">{p.title}</Heading>
