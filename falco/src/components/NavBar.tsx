@@ -64,7 +64,17 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   }
 
   return (
-    <Flex position="sticky" zIndex={1} top={0} bg="tan" p={4} align="center">
+    <Flex
+      position="sticky"
+      zIndex={1}
+      top={0}
+      borderBottomStyle="solid"
+      borderBottomColor="white"
+      borderBottomWidth="1px"
+      bg="gray.800"
+      p={4}
+      align="center"
+    >
       <NextLink href="/">
         <Link>
           <Heading>Strobo</Heading>

@@ -6,7 +6,14 @@ interface SideBarProps {}
 
 export const SideBar: React.FC<SideBarProps> = ({}) => {
   return (
-    <Grid position="sticky" templateRows="repeat(5, 1fr)" alignItems="flex-end">
+    <Grid
+      position="sticky"
+      borderRightStyle="solid"
+      borderRightColor="white"
+      borderRightWidth="1px"
+      templateRows="repeat(5, 1fr)"
+      alignItems="flex-end"
+    >
       <Box>
         <NextLink href="/create-post">
           <Button as={Link} bg="transparent" fontSize={32} mt={0} ml={6}>
