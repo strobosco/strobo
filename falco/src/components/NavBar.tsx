@@ -42,7 +42,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   } else {
     body = (
       <Flex align="center">
-        <Box mr={4}>
+        <Box mr={4} ml={4}>
           <NextLink href="/profile/mine">
             <Button as={Link} bg="transparent">
               {data.me.username}
