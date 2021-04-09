@@ -3,17 +3,21 @@ import { useRouter } from "next/router";
 import { Box, Heading, Text, Link } from "@chakra-ui/layout";
 import { Layout } from "../../../components/Layout";
 import { withApollo } from "../../../utils/withApollo";
-import { useUserQuery } from "../../../generated/graphql";
+import {
+  Post,
+  PostSnippetFragment,
+  PostSnippetFragmentDoc,
+  useUserQuery,
+} from "../../../generated/graphql";
 import { Flex, Stack } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { EditDeletePostButtons } from "../../../components/EditDeletePostButtons";
+import { VoteSection } from "../../../components/VoteSection";
 
 const ViewProfile = ({}) => {
   const router = useRouter();
   const id = parseInt(router.query.id as string);
-  console.log(id);
   const { data } = useUserQuery({ variables: { id: id } });
-  console.log(data);
 
   return (
     <Layout>
@@ -27,7 +31,7 @@ const ViewProfile = ({}) => {
         {data?.user?.posts.map((p) =>
           !p ? null : (
             <Flex key={p.id} p={5} shadow="md" borderWidth="1px">
-              {/* <VoteSection post={p} /> */}
+              <VoteSection post={p} />
               <Box flex={1}>
                 <NextLink href="/post/[id]" as={`/post/${p.id}`}>
                   <Link>
