@@ -4,12 +4,17 @@ query User($id: Int!) {
     username
     posts {
       id
+      points
+      voteStatus
       title
       text
       textSnippet
       creator {
         id
+        username
       }
+      createdAt
+      updatedAt
     }
   }
 }
