@@ -78,6 +78,8 @@ falco
     +-- components // general components shared by all pages / other components
     |   +-- DarkModeSwitch.tsx (used to tooggle dark/light mode)
     |   +-- NavBar.tsx (NavBar)
+    |   +-- PostsView.tsx (Load posts on index page)
+    |   +-- SideBar.tsx (side bar with menu options)
     |   +-- Wrapper.tsx (wrapper to control sizes of components)
     |   +-- Layout.tsx (component that generalizes the layout using NavBar and Wrapper)
     |   +-- VoteSection.tsx (contains upvote, downvote buttons and points)
@@ -98,6 +100,7 @@ falco
     +-- pages //Next.js folder containing app pages
     |   +-- change-password (contains password change dynamic page)
     |   +-- post (contains pages to VIEW and EDIT post)
+    |   +-- profile (pages to view profiles)
     |   +-- create-post.tsx (create post page)
     |   +-- forgot-password.tsx (forgot password page)
     |   +-- index.tsx (home page)
@@ -105,6 +108,11 @@ falco
     |   +-- register.tsx (registration page)
     |
     +-- utils // folder containing various utils
+    |
+    +-- styles // folder containing Chakra UI styling
+    |   +-- theme.tsx // main theming entrypoint
+    |   +-- component // contains componenet specific themes
+    |   +-- tokens // contains token specific themes
 ```
 
 ### Tech Stack
