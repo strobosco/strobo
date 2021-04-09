@@ -21,7 +21,7 @@ const Index = () => {
 
   return (
     <Layout variant="regular">
-      <Flex>
+      <Flex zIndex={-1}>
         <Box w="20%" ml={4} mr="auto">
           <SideBar />
         </Box>
@@ -30,7 +30,7 @@ const Index = () => {
         </Box>
       </Flex>
       {data && data.posts.hasMore ? (
-        <Flex>
+        <Flex zIndex={0}>
           <Button
             onClick={() => {
               fetchMore({
