@@ -373,10 +373,10 @@ export type UserQuery = (
     & Pick<User, 'id' | 'username'>
     & { posts: Array<(
       { __typename?: 'Post' }
-      & Pick<Post, 'id' | 'title' | 'text' | 'textSnippet'>
+      & Pick<Post, 'id' | 'points' | 'voteStatus' | 'title' | 'text' | 'textSnippet' | 'createdAt' | 'updatedAt'>
       & { creator: (
         { __typename?: 'User' }
-        & Pick<User, 'id'>
+        & Pick<User, 'id' | 'username'>
       ) }
     )> }
   )> }
@@ -886,12 +886,17 @@ export const UserDocument = gql`
     username
     posts {
       id
+      points
+      voteStatus
       title
       text
       textSnippet
       creator {
         id
+        username
       }
+      createdAt
+      updatedAt
     }
   }
 }
