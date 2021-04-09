@@ -14,6 +14,7 @@ export const Login: React.FC<{}> = ({}) => {
   const [login] = useLoginMutation();
 
   const myStyle = {
+    color: "black",
     width: "100%",
     paddingTop: "0.625rem",
     paddingBottom: "0.625rem",

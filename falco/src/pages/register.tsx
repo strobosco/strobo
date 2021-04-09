@@ -16,6 +16,7 @@ export const Register: React.FC<RegisterProps> = ({}) => {
   const [register] = useRegisterMutation();
 
   const myStyle = {
+    color: "black",
     width: "100%",
     paddingTop: "0.625rem",
     paddingBottom: "0.625rem",
