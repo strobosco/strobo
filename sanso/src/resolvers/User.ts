@@ -5,6 +5,7 @@ import {
   Ctx,
   Field,
   FieldResolver,
+  Int,
   Mutation,
   ObjectType,
   Query,
@@ -148,6 +149,14 @@ export class UserResolver {
 
     // if yes, find and return that user
     return User.findOne(req.session.userId);
+  }
+
+  @Query(() => User, { nullable: true })
+  //get current logged-in user
+  async user(@Arg("id", () => Int) id: number) {
+    const data = await User.findOne(id, { relations: ["posts"] });
+    console.log(data);
+    return data;
   }
 
   @Mutation(() => UserResponse)
