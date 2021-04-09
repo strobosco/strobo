@@ -29,6 +29,7 @@ export class User extends BaseEntity {
   @Column({ unique: true })
   email!: string; // required
 
+  @Field(() => [Post])
   @OneToMany(() => Post, (post) => post.creator)
   posts: Post[];
 
