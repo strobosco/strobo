@@ -2,11 +2,7 @@ import { Box, Flex, Stack, Text } from "@chakra-ui/layout";
 import { Heading } from "@chakra-ui/react";
 import React from "react";
 import { Layout } from "../../components/Layout";
-import {
-  ProfilePostsQuery,
-  useMeQuery,
-  useProfilePostsQuery,
-} from "../../generated/graphql";
+import { useMeQuery, useProfilePostsQuery } from "../../generated/graphql";
 import { withApollo } from "../../utils/withApollo";
 
 const MyProfile: React.FC<{}> = ({}) => {

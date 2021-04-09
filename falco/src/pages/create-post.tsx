@@ -38,6 +38,9 @@ const CreatePost: React.FC<{}> = ({}) => {
                 cache.evict({
                   fieldName: "posts:{}",
                 });
+                cache.evict({
+                  fieldName: "profilePosts:{}",
+                });
               },
             });
             if (!errors) {
