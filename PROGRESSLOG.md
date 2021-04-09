@@ -12,3 +12,9 @@
 
 - 7/4/2021
   - added SideBar to home page, abstracted some components
+
+- 8/4/2021
+  - added page to view my profile, added query to fetch my posts
+
+- 9/4/2021
+  - added page to view other profiles, added query to fetch user and posts
