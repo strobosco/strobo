@@ -1,0 +1,15 @@
+query User($id: Int!) {
+  user(id: $id) {
+    id
+    username
+    posts {
+      id
+      title
+      text
+      textSnippet
+      creator {
+        id
+      }
+    }
+  }
+}
