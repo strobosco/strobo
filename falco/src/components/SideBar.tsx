@@ -1,15 +1,16 @@
-import { Box, Button, Grid, Link } from "@chakra-ui/react";
+import { Box, Button, Grid, Link, useColorModeValue } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
 
 interface SideBarProps {}
 
 export const SideBar: React.FC<SideBarProps> = ({}) => {
+  const bcValue = useColorModeValue("gray.800", "white");
   return (
     <Grid
       position="sticky"
       borderRightStyle="solid"
-      borderRightColor="white"
+      borderRightColor={bcValue}
       borderRightWidth="1px"
       templateRows="repeat(5, 1fr)"
       alignItems="flex-end"

@@ -1,7 +1,7 @@
 import { useApolloClient } from "@apollo/client";
 import { Button } from "@chakra-ui/button";
 // import { isServer } from "../utils/isServer"; used to make me query from browser not server
-import { Box, Flex, Heading, Link } from "@chakra-ui/react";
+import { Box, Flex, Heading, Link, useColorModeValue } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
@@ -19,6 +19,8 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   // const [{ data, fetching }] = useMeQuery({
   // pause: isServer(),
   // });
+  const bgValue = useColorModeValue("white", "gray.800");
+  const bcValue = useColorModeValue("gray.800", "white");
 
   let body = null;
 
@@ -69,9 +71,9 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
       zIndex={1}
       top={0}
       borderBottomStyle="solid"
-      borderBottomColor="white"
+      borderBottomColor={bcValue}
       borderBottomWidth="1px"
-      bg="gray.800"
+      bg={bgValue}
       p={4}
       align="center"
     >
