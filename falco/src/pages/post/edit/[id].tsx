@@ -1,15 +1,12 @@
 import { Box, Button, FormLabel } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
-import { withUrqlClient } from "next-urql";
 import { useRouter } from "next/router";
 import React from "react";
-import { InputField } from "../../../components/input/InputField";
 import { Layout } from "../../../components/Layout";
 import {
   usePostQuery,
   useUpdatePostMutation,
 } from "../../../generated/graphql";
-import { createUrqlClient } from "../../../utils/createUrqlClient";
 import { useGetIntId } from "../../../utils/useGetIntId";
 import { withApollo } from "../../../utils/withApollo";
 
@@ -25,6 +22,7 @@ const EditPost = ({}) => {
   const [updatePost] = useUpdatePostMutation();
 
   const myStyle = {
+    color: "black",
     width: "100%",
     paddingTop: "0.625rem",
     paddingBottom: "0.625rem",
