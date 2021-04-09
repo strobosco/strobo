@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useLogoutMutation, useMeQuery } from "../generated/graphql";
 import { DarkModeSwitch } from "./DarkModeSwitch";
+import { SearchBar } from "./SearchBar";
 
 interface NavBarProps {}
 
@@ -31,7 +32,9 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
     body = (
       <>
         <NextLink href="/login">
-          <Link mr={2}>Login</Link>
+          <Link ml={4} mr={2}>
+            Login
+          </Link>
         </NextLink>
         <NextLink href="/register">
           <Link mr={2}>Register</Link>
@@ -82,6 +85,9 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
           <Heading>Strobo</Heading>
         </Link>
       </NextLink>
+      <Box mr="10%" ml="15%" w="50%">
+        <SearchBar />
+      </Box>
       <Box ml={"auto"}>
         <Flex align="center">
           <DarkModeSwitch />
