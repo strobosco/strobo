@@ -165,6 +165,33 @@ export class PostResolver {
     };
   }
 
+  @Query(() => [Post], { nullable: true })
+  async postsSearch(
+    @Arg("filter", () => String, { nullable: true }) filter: string
+  ): Promise<Post[] | undefined> {
+    if (!filter) {
+      return undefined;
+    }
+    console.log("\nReached post resolver\n");
+
+    const filterPhrase = `%${filter}%`;
+    const replacements = [filterPhrase, filterPhrase];
+
+    const posts = await getConnection().query(
+      `
+      select p.*
+      from post p
+      where p.title like $1 OR p.text like $2
+      order by p."createdAt" DESC
+    `,
+      replacements
+    );
+
+    console.log(posts);
+
+    return posts;
+  }
+
   @Query(() => Post, { nullable: true })
   post(@Arg("id", () => Int) id: number): Promise<Post | undefined> {
     return Post.findOne(id);
