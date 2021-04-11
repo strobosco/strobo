@@ -1,0 +1,6 @@
+query PostsSearch($filter: String) {
+  postsSearch(filter: $filter) {
+    ...PostSnippet
+    text
+  }
+}
