@@ -1,9 +1,9 @@
 import { SearchIcon } from "@chakra-ui/icons";
-import { Box, Button, Flex, Heading, IconButton } from "@chakra-ui/react";
+import { Box, Button, Flex, IconButton } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
+import { useRouter } from "next/router";
 import React from "react";
 import { usePostsSearchLazyQuery } from "../generated/graphql";
-import { useRouter } from "next/router";
 
 interface SearchBarProps {}
 
@@ -21,6 +21,8 @@ export const SearchBar: React.FC<SearchBarProps> = ({}) => {
     borderStyle: "solid",
     borderWidth: "1px",
     borderColor: "rgb(169,169,169)",
+    borderRadius: "3px",
+    backgroundColor: "grey",
   };
   return (
     <Box alignItems="center">
@@ -41,7 +43,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({}) => {
             <Field
               as="input"
               name="search"
-              placeholder="..."
+              placeholder="Search..."
               style={myStyle}
             ></Field>
             <IconButton
@@ -51,13 +53,9 @@ export const SearchBar: React.FC<SearchBarProps> = ({}) => {
               type="submit"
               ml={2}
             />
-            <Button type="submit">Submit</Button>
           </Flex>
         </Form>
       </Formik>
-      {/* {data?.postsSearch?.map((p) => {
-        console.log(p);
-      })} */}
     </Box>
   );
 };
