@@ -85,10 +85,10 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
           <Heading>Strobo</Heading>
         </Link>
       </NextLink>
-      <Box mr="10%" ml="15%" w="50%">
+      <Box ml="auto" mr="auto" w="60%">
         <SearchBar />
       </Box>
-      <Box ml={"auto"}>
+      <Box ml="10px" mr="5px">
         <Flex align="center">
           <DarkModeSwitch />
           {body}
