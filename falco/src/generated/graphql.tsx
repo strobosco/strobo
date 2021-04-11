@@ -19,6 +19,7 @@ export type Query = {
   hello: Scalars['String'];
   posts: PaginatedPosts;
   profilePosts: PaginatedPosts;
+  postsSearch?: Maybe<Array<Post>>;
   post?: Maybe<Post>;
   me?: Maybe<User>;
   user?: Maybe<User>;
@@ -35,6 +36,11 @@ export type QueryProfilePostsArgs = {
   cursor?: Maybe<Scalars['String']>;
   limit: Scalars['Int'];
   id: Scalars['Int'];
+};
+
+
+export type QueryPostsSearchArgs = {
+  filter?: Maybe<Scalars['String']>;
 };
 
 
@@ -340,6 +346,20 @@ export type PostsQuery = (
       & PostSnippetFragment
     )> }
   ) }
+);
+
+export type PostsSearchQueryVariables = Exact<{
+  filter?: Maybe<Scalars['String']>;
+}>;
+
+
+export type PostsSearchQuery = (
+  { __typename?: 'Query' }
+  & { postsSearch?: Maybe<Array<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'text'>
+    & PostSnippetFragment
+  )>> }
 );
 
 export type ProfilePostsQueryVariables = Exact<{
@@ -839,6 +859,42 @@ export function usePostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Post
 export type PostsQueryHookResult = ReturnType<typeof usePostsQuery>;
 export type PostsLazyQueryHookResult = ReturnType<typeof usePostsLazyQuery>;
 export type PostsQueryResult = Apollo.QueryResult<PostsQuery, PostsQueryVariables>;
+export const PostsSearchDocument = gql`
+    query PostsSearch($filter: String) {
+  postsSearch(filter: $filter) {
+    ...PostSnippet
+    text
+  }
+}
+    ${PostSnippetFragmentDoc}`;
+
+/**
+ * __usePostsSearchQuery__
+ *
+ * To run a query within a React component, call `usePostsSearchQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePostsSearchQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePostsSearchQuery({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *   },
+ * });
+ */
+export function usePostsSearchQuery(baseOptions?: Apollo.QueryHookOptions<PostsSearchQuery, PostsSearchQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PostsSearchQuery, PostsSearchQueryVariables>(PostsSearchDocument, options);
+      }
+export function usePostsSearchLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PostsSearchQuery, PostsSearchQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PostsSearchQuery, PostsSearchQueryVariables>(PostsSearchDocument, options);
+        }
+export type PostsSearchQueryHookResult = ReturnType<typeof usePostsSearchQuery>;
+export type PostsSearchLazyQueryHookResult = ReturnType<typeof usePostsSearchLazyQuery>;
+export type PostsSearchQueryResult = Apollo.QueryResult<PostsSearchQuery, PostsSearchQueryVariables>;
 export const ProfilePostsDocument = gql`
     query ProfilePosts($id: Int!, $limit: Int!, $cursor: String) {
   profilePosts(id: $id, limit: $limit, cursor: $cursor) {
