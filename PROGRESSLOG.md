@@ -18,3 +18,6 @@
 
 - 9/4/2021
   - added page to view other profiles, added query to fetch user and posts
+
+- 11/4/2021
+  - worked on search bar, added resolver functionality to return posts containing filter in title or text, simply router.push to first posts id until I figure something else out
