@@ -21,3 +21,6 @@
 
 - 11/4/2021
   - worked on search bar, added resolver functionality to return posts containing filter in title or text, simply router.push to first posts id until I figure something else out
+
+- 12/4/2021
+  - search bar now routes to search page, woking on fixing it graphically
