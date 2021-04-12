@@ -19,7 +19,7 @@ export type Query = {
   hello: Scalars['String'];
   posts: PaginatedPosts;
   profilePosts: PaginatedPosts;
-  postsSearch?: Maybe<Array<Post>>;
+  postsSearch: PaginatedPosts;
   post?: Maybe<Post>;
   me?: Maybe<User>;
   user?: Maybe<User>;
@@ -40,6 +40,8 @@ export type QueryProfilePostsArgs = {
 
 
 export type QueryPostsSearchArgs = {
+  cursor?: Maybe<Scalars['String']>;
+  limit: Scalars['Int'];
   filter?: Maybe<Scalars['String']>;
 };
 
@@ -350,16 +352,22 @@ export type PostsQuery = (
 
 export type PostsSearchQueryVariables = Exact<{
   filter?: Maybe<Scalars['String']>;
+  limit: Scalars['Int'];
+  cursor?: Maybe<Scalars['String']>;
 }>;
 
 
 export type PostsSearchQuery = (
   { __typename?: 'Query' }
-  & { postsSearch?: Maybe<Array<(
-    { __typename?: 'Post' }
-    & Pick<Post, 'text'>
-    & PostSnippetFragment
-  )>> }
+  & { postsSearch: (
+    { __typename?: 'PaginatedPosts' }
+    & Pick<PaginatedPosts, 'hasMore'>
+    & { posts: Array<(
+      { __typename?: 'Post' }
+      & Pick<Post, 'text'>
+      & PostSnippetFragment
+    )> }
+  ) }
 );
 
 export type ProfilePostsQueryVariables = Exact<{
@@ -860,10 +868,13 @@ export type PostsQueryHookResult = ReturnType<typeof usePostsQuery>;
 export type PostsLazyQueryHookResult = ReturnType<typeof usePostsLazyQuery>;
 export type PostsQueryResult = Apollo.QueryResult<PostsQuery, PostsQueryVariables>;
 export const PostsSearchDocument = gql`
-    query PostsSearch($filter: String) {
-  postsSearch(filter: $filter) {
-    ...PostSnippet
-    text
+    query PostsSearch($filter: String, $limit: Int!, $cursor: String) {
+  postsSearch(filter: $filter, cursor: $cursor, limit: $limit) {
+    hasMore
+    posts {
+      ...PostSnippet
+      text
+    }
   }
 }
     ${PostSnippetFragmentDoc}`;
@@ -881,10 +892,12 @@ export const PostsSearchDocument = gql`
  * const { data, loading, error } = usePostsSearchQuery({
  *   variables: {
  *      filter: // value for 'filter'
+ *      limit: // value for 'limit'
+ *      cursor: // value for 'cursor'
  *   },
  * });
  */
-export function usePostsSearchQuery(baseOptions?: Apollo.QueryHookOptions<PostsSearchQuery, PostsSearchQueryVariables>) {
+export function usePostsSearchQuery(baseOptions: Apollo.QueryHookOptions<PostsSearchQuery, PostsSearchQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<PostsSearchQuery, PostsSearchQueryVariables>(PostsSearchDocument, options);
       }
