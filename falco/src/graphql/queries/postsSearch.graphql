@@ -1,6 +1,9 @@
-query PostsSearch($filter: String) {
-  postsSearch(filter: $filter) {
-    ...PostSnippet
-    text
+query PostsSearch($filter: String, $limit: Int!, $cursor: String) {
+  postsSearch(filter: $filter, cursor: $cursor, limit: $limit) {
+    hasMore
+    posts {
+      ...PostSnippet
+      text
+    }
   }
 }
