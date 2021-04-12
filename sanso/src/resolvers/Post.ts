@@ -165,31 +165,37 @@ export class PostResolver {
     };
   }
 
-  @Query(() => [Post], { nullable: true })
+  @Query(() => PaginatedPosts)
   async postsSearch(
-    @Arg("filter", () => String, { nullable: true }) filter: string
-  ): Promise<Post[] | undefined> {
-    if (!filter) {
-      return undefined;
-    }
+    @Arg("filter", () => String, { nullable: true }) filter: string,
+    @Arg("limit", () => Int) limit: number,
+    @Arg("cursor", () => String, { nullable: true }) cursor: string | null
+  ): Promise<PaginatedPosts> {
     console.log("\nReached post resolver\n");
 
+    const realLimit = Math.min(50, limit);
+    const realLimitPlusOne = realLimit + 1;
+
     const filterPhrase = `%${filter}%`;
-    const replacements = [filterPhrase, filterPhrase];
+    const replacements = [realLimitPlusOne, filterPhrase, filterPhrase];
 
     const posts = await getConnection().query(
       `
       select p.*
       from post p
-      where p.title like $1 OR p.text like $2
+      where p.title like $2 OR p.text like $3
       order by p."createdAt" DESC
+      limit $1
     `,
       replacements
     );
 
     console.log(posts);
 
-    return posts;
+    return {
+      posts: posts,
+      hasMore: posts.length === realLimitPlusOne,
+    };
   }
 
   @Query(() => Post, { nullable: true })
