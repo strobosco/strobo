@@ -24,6 +24,23 @@ Our users will be divided into 2 main tiers: *Pare*'s and *Torgio*'s.
 
 We plan to allow public access to our platform because we believe information should be free and accessible to all. So, anybody can sign up for an account and read everything that is posted to the app. However, to be allowed to post you have to earn the possiblity to do so. Currently, we're thinking of implementing a test system like LinkedIn's where in order to gain badges to display on your profile you must pass a certain test. We are open to suggestions.
 
+## Run Locally
+
+To run the web app locally these are the following requisites:
+
+  - PostgreSQLL database for persistant storage
+  - Redis instance for caching
+  - Node.js
+  - npm to install dependencies
+
+The main commands to run the app are:
+
+  1. Navigate to ```sanso``` and run ```npm install``` to install dependencies
+  2. Navigate to ```sanso``` and run ```npm run dev``` to start a local nodemon instance
+  3. Navigate to ```falco``` and run ```npm install``` to install dependencies
+  4. Navigate to ```falco``` and run ```npm run dev``` to start a local nextjs instance
+
+After that navigate to your desired localhost port and use the app!
 
 ## Structure
 
