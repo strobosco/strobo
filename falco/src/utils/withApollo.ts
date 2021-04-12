@@ -45,6 +45,20 @@ const createClient = (ctx?: NextPageContext) =>
                 };
               },
             },
+            postsSearch: {
+              keyArgs: [],
+              merge(
+                existing: PaginatedPosts | undefined,
+                incoming: PaginatedPosts
+              ): PaginatedPosts {
+                return {
+                  ...incoming, // equal to:
+                  // __typename: "PaginatedPosts",
+                  // hasMore: incoming.hasMore
+                  posts: [...(existing?.posts || []), ...incoming.posts],
+                };
+              },
+            },
           },
         },
       },
