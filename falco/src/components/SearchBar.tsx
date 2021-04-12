@@ -1,14 +1,13 @@
 import { SearchIcon } from "@chakra-ui/icons";
-import { Box, Button, Flex, IconButton } from "@chakra-ui/react";
+import { Box, Flex, IconButton } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
-import { usePostsSearchLazyQuery } from "../generated/graphql";
 
 interface SearchBarProps {}
 
 export const SearchBar: React.FC<SearchBarProps> = ({}) => {
-  const [PostsSearch, { data }] = usePostsSearchLazyQuery();
+  // const [PostsSearch, { data }] = usePostsSearchLazyQuery();
   const router = useRouter();
 
   const myStyle = {
@@ -22,19 +21,14 @@ export const SearchBar: React.FC<SearchBarProps> = ({}) => {
     borderWidth: "1px",
     borderColor: "rgb(169,169,169)",
     borderRadius: "3px",
-    backgroundColor: "grey",
   };
   return (
     <Box alignItems="center">
       <Formik
         initialValues={{ search: "" }}
         onSubmit={async (values) => {
-          await PostsSearch({
-            variables: { filter: values.search },
-          });
-          if (data?.postsSearch) {
-            console.log(data.postsSearch[0]);
-            router.push(`/post/${data.postsSearch[0].id}`);
+          if (values.search) {
+            router.push(`/search/${values.search}`);
           }
         }}
       >
