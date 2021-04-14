@@ -24,3 +24,6 @@
 
 - 12/4/2021
   - search bar now routes to search page, woking on fixing it graphically
+
+- 13, 14/4/2021
+  - looking at using Redis in a K8 cluster, so far seems alright conceptually, put into practice tomorrow
