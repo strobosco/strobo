@@ -1,1 +1,3 @@
-k8/
+k8/nginx
+k8/postgres
+k8/redis
