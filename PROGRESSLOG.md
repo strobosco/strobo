@@ -27,3 +27,6 @@
 
 - 13, 14/4/2021
   - looking at using Redis in a K8 cluster, so far seems alright conceptually, put into practice tomorrow
+
+- 15/4/2021
+  - set up PostgreSQL and Nginx-ingress, alongside Redis, on K8 cluster and built scripts for start/stop
