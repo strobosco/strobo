@@ -1,18 +1,13 @@
-import React from "react";
-import { useRouter } from "next/router";
-import { Box, Heading, Text, Link } from "@chakra-ui/layout";
-import { Layout } from "../../../components/Layout";
-import { withApollo } from "../../../utils/withApollo";
-import {
-  Post,
-  PostSnippetFragment,
-  PostSnippetFragmentDoc,
-  useUserQuery,
-} from "../../../generated/graphql";
+import { Box, Heading, Link, Text } from "@chakra-ui/layout";
 import { Flex, Stack } from "@chakra-ui/react";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
+import React from "react";
 import { EditDeletePostButtons } from "../../../components/EditDeletePostButtons";
+import { Layout } from "../../../components/Layout";
 import { VoteSection } from "../../../components/VoteSection";
+import { useUserQuery } from "../../../generated/graphql";
+import { withApollo } from "../../../utils/withApollo";
 
 const ViewProfile = ({}) => {
   const router = useRouter();
