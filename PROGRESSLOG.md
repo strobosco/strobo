@@ -30,3 +30,6 @@
 
 - 15/4/2021
   - set up PostgreSQL and Nginx-ingress, alongside Redis, on K8 cluster and built scripts for start/stop
+
+- 16,17/4/2021
+  - last 2 days have been slow, overflowing with school and Coursera courses. Am still figuring out how to properly connect Redis, Postgrsql, and API with eachother on K8
