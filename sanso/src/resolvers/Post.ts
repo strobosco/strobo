@@ -177,13 +177,18 @@ export class PostResolver {
     const realLimitPlusOne = realLimit + 1;
 
     const filterPhrase = `%${filter}%`;
-    const replacements = [realLimitPlusOne, filterPhrase, filterPhrase];
+    const replacements: any[] = [realLimitPlusOne, filterPhrase, filterPhrase];
+
+    if (cursor) {
+      replacements.push(new Date(parseInt(cursor)));
+    }
 
     const posts = await getConnection().query(
       `
       select p.*
       from post p
       where p.title like $2 OR p.text like $3
+      ${cursor ? `where p."createdAt" < $4` : ""}
       order by p."createdAt" DESC
       limit $1
     `,
