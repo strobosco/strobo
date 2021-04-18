@@ -28,6 +28,6 @@ echo "service ok`n"
 kubectl apply -f ./tls-secret.yaml
 echo "tls secret ok`n"
 
-cd ..\scripts
+cd ..\..\scripts
 
 kubectl get all -n ingress-nginx
