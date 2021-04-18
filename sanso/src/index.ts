@@ -28,6 +28,7 @@ declare module "express-session" {
 }
 
 const main = async () => {
+  console.log(process.env);
   const conn = await createConnection({
     type: "postgres",
     // database: "strobo2",
@@ -46,14 +47,18 @@ const main = async () => {
   const app = express();
 
   const RedisStore = connectRedis(session); // create RedisStore
-  const redis = new Redis(process.env.REDIS_URL); // connects to redis-server
+  const redis = new Redis({
+    host: process.env.REDIS_URL,
+    sentinelPassword: "a-very-complex-password-here",
+    password: "a-very-complex-password-here",
+  }); // connects to redis-server
 
   app.set("trust proxy", 1);
   app.use(
     // allow app to use cors from
     cors({
       origin: process.env.CORS_ORIGIN, // this URL
-      credentials: true,
+      // credentials: true,
     })
   );
   app.use(
