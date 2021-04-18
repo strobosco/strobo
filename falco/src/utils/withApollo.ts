@@ -1,11 +1,16 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
 import { NextPageContext } from "next";
 import { withApollo as createWithApollo } from "next-apollo";
 import { PaginatedPosts } from "../generated/graphql";
 
+const apolloLink = () => {
+  return new HttpLink({ uri: process.env.NEXT_PUBLIC_APOLLO_URI });
+};
+
 const createClient = (ctx?: NextPageContext) =>
   new ApolloClient({
-    uri: "http://localhost:80/graphql",
+    link: apolloLink(),
+    // uri: process.env.NEXT_PUBLIC_APOLLO_URI,
     credentials: "include",
     headers: {
       cookie:
