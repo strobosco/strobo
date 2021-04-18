@@ -33,3 +33,6 @@
 
 - 16,17/4/2021
   - last 2 days have been slow, overflowing with school and Coursera courses. Am still figuring out how to properly connect Redis, Postgrsql, and API with eachother on K8
+
+- 18/4/2021
+  - spent whole day fixing CORS duplication error, think it's finally working (?!). Also fixed Redis auth and connection
