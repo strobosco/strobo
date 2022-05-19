@@ -1,29 +1,3 @@
-# Strobo
-
-## What?
-
-Social media platform that brings back transparency and accountability to the web
-
-## Why?
-
-Social media nowadays lacks **responsibility, accountability, truth, and transparency**. Strobo aims to fix this problem. We want to bring social media back to what it once was: a **community built on solid morals that allowed individuals to interact with one another**.
-
-### Goals
-
-- bring back accountability and responsibility to social media
-- create a space that is based on truth and transparency
-- create a community that is educated, mature, methodical, objective, and always hungry to know more
-
-## How?
-
-Our users will be divided into 2 main tiers: *Pare*'s and *Torgio*'s.
-
-- *Pare*: this is a verified user who can post, comment, and like whatever material is posted to the app
-
-- *Torgio*: this is a public user, the only action possible from this account is reading
-
-We plan to allow public access to our platform because we believe information should be free and accessible to all. So, anybody can sign up for an account and read everything that is posted to the app. However, to be allowed to post you have to earn the possiblity to do so. Currently, we're thinking of implementing a test system like LinkedIn's where in order to gain badges to display on your profile you must pass a certain test. We are open to suggestions.
-
 ## Run Locally
 
 To run the web app locally these are the following requisites:
